@@ -1,0 +1,17 @@
+version: '3'
+services:
+  lifetracker:
+    build: .
+    ports:
+      - 8080:8080
+    links:
+      - lifetracker_postgres
+    depends_on:
+      - lifetracker_postgres
+    environment:
+      LIFETRACKER_DATABASE_JDBCURL: "jdbc:postgresql://lifetracker_postgres:5432/lifetracker"
+      SPRING_PROFILES_ACTIVE: prod
+  lifetracker_postgres:
+    image: postgres:9.6-alpine
+    environment:
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
