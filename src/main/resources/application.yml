@@ -1,0 +1,15 @@
+spring:
+  data:
+    rest:
+      basePath: /api
+
+lifetracker:
+  database:
+    jdbcUrl: jdbc:postgresql://localhost:5432/lifetracker_iter1
+    username: lifetracker
+    password: lifetracker
+
+# By default we want DEBUG-level logging for our package
+logging:
+  level:
+    com.thanethomson.lifetracker: DEBUG
