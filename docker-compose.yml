@@ -1,17 +1,30 @@
 version: '3'
 services:
   lifetracker:
-    build: .
+    image: "lifetracker:${IMAGE_TAG}"
+    restart: always
     ports:
       - 8080:8080
     links:
-      - lifetracker_postgres
-    depends_on:
-      - lifetracker_postgres
+      - lifetracker_postgres:postgres
     environment:
-      LIFETRACKER_DATABASE_JDBCURL: "jdbc:postgresql://lifetracker_postgres:5432/lifetracker"
+      LIFETRACKER_DATABASE_JDBCURL: "jdbc:postgresql://postgres:5432/lifetracker"
+      LIFETRACKER_DATABASE_USER: "lifetracker"
+      LIFETRACKER_DATABASE_PASSWORD: "${LIFETRACKER_DATABASE_PASSWORD}"
       SPRING_PROFILES_ACTIVE: prod
+
   lifetracker_postgres:
     image: postgres:9.6-alpine
+    ports:
+      - 5432:5432
     environment:
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+
+  adminer:
+    image: adminer:4.6.2-standalone
+    restart: always
+    links:
+      - lifetracker_postgres:postgres
+    ports:
+      - 8000:8080
+
