@@ -1,13 +1,28 @@
 #!/bin/bash
 set -e
 
-if [ -z "${LIFETRACKER_DATABASE_PASSWORD}" ]; then
-    echo "Missing environment variable: LIFETRACKER_DATABASE_PASSWORD"
-    exit 1
+if [ -z "${HOST}" ]; then
+    export HOST=localhost
 fi
 
-gradle -Pflyway.url="jdbc:postgresql://localhost:5432/lifetracker_prod" \
-    -Pflyway.user="lifetracker_prod" \
-    -Pflyway.password="${LIFETRACKER_DATABASE_PASSWORD}" \
-    flywayMigrate
+if [ -z "${DB}" ]; then
+    export DB=lifetracker
+fi
+
+if [ -z "${USER}" ]; then
+    export USER=lifetracker
+fi
+
+if [ -z "${PASSWORD}" ]; then
+    export PASSWORD=lifetracker
+fi
+
+if [ -z "${CMD}" ]; then
+    export CMD=flywayMigrate
+fi
+
+gradle -Pflyway.url="jdbc:postgresql://${HOST}:5432/${DB}" \
+    -Pflyway.user="${USER}" \
+    -Pflyway.password="${PASSWORD}" \
+    $CMD
 
