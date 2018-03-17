@@ -82,3 +82,9 @@ gradle-app.setting
 deploy/*.retry
 deploy/venv/
 
+# -----------
+# Other files
+# ----------
+*.swp
+*.bak
+
