@@ -13,7 +13,6 @@ docker run --name lifetracker \
     -e LIFETRACKER_DATABASE_JDBCURL="jdbc:postgresql://postgres:5432/lifetracker_prod" \
     -e LIFETRACKER_DATABASE_USERNAME="lifetracker_prod" \
     -e LIFETRACKER_DATABASE_PASSWORD="some-mean-password" \
-    -p 8080:8080 \
+    -p 80:8080 \
     -it \
     "lifetracker:$1"
-
